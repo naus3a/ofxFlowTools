@@ -18,6 +18,8 @@ namespace flowTools {
 		
 		void	setup(int _simulationWidth, int _simulationHeight, int _numParticlesX, int _numParticlesY);
 		
+		void clear();
+
 		void	addFlowVelocity(ofTexture& _tex, float _strength = 1.0) ;
 		void	addFluidVelocity (ofTexture& _tex, float _strength = 1.0) ;
 		void	setObstacle (ofTexture& _tex) ;
@@ -41,6 +43,7 @@ namespace flowTools {
 		float	getSize() { return size.get(); }
 		float	getSizeSpread() { return sizeSpread.get(); }
 		ofVec2f getGravity() {return gravity.get();}
+		ofFloatColor & getParticleColor() { return drawParticleShader._color; }
 		
 		void	setSpeed(float value) { speed.set(value); }
 		void	setCellSize(float value) { cellSize.set(value); }
@@ -53,6 +56,7 @@ namespace flowTools {
 		void	setSize(float value) { size.set(value); }
 		void	setSizeSpread(float value) { sizeSpread.set(value); }
 		void	setGravity(ofVec2f value) { gravity.set(value); }
+		void	setParticleColor(ofFloatColor _col) { drawParticleShader._color = _col; }
 		
 		ofParameterGroup parameters;
 	private:

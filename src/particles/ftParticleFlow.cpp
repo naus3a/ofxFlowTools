@@ -95,6 +95,16 @@ namespace flowTools {
 		
 	}
 	
+	void ftParticleFlow::clear() {
+		particleAgeLifespanMassSizeSwapBuffer.black();
+		//particlePositionSwapBuffer.black();
+		//particleHomeBuffer.black();
+		//fluidVelocitySwapBuffer.black();
+		flowVelocitySwapBuffer.black();
+		densitySwapBuffer.black();
+		obstacleBuffer.black();
+	}
+
 	void ftParticleFlow::update(float _deltaTime) {
 		float time = ofGetElapsedTimef();
 		if (_deltaTime != 0)

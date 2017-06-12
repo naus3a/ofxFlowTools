@@ -11,6 +11,7 @@ namespace flowTools {
 	public:
 		ftDrawParticleShader() {
 			bInitialized = 1;
+			_color.set(1,1,1,1);
 			
 			if (ofIsGLProgrammableRenderer())
 				glThree();
@@ -28,6 +29,7 @@ namespace flowTools {
 			vertexShader = GLSL120(
 								   uniform sampler2DRect positionTexture;
 								   uniform sampler2DRect ALMSTexture;
+								   uniform vec4 color;
 								   uniform float TwinkleSpeed;
 								   
 								   void main(){
@@ -47,7 +49,7 @@ namespace flowTools {
 									   alpha *= 0.5 + (cos((age + size) * TwinkleSpeed * mass) + 1.0) * 0.5;
 									   alpha = max(alpha, 0.0);
 									   
-									   gl_FrontColor = vec4(vec3(1.0), alpha);
+									   gl_FrontColor = vec4(color.r, color.g, color.b,  color.a*alpha);//vec4(vec3(1.0, 0.0, 0.0), alpha);
 									   
 								   }
 								   );
@@ -96,7 +98,8 @@ namespace flowTools {
 									   alpha *= 0.5 + (cos((age + size) * TwinkleSpeed * mass) + 1.0) * 0.5;
 									   alpha = max(alpha, 0.0);
 									   
-									   colorVarying = vec4(vec3(1.0), alpha);
+									   //colorVarying = vec4(vec3(1.0, 0.0, 0.0), alpha);
+									   colorVarying.a = alpha;
 								   }
 								);
 			
@@ -129,11 +132,14 @@ namespace flowTools {
 		
 	public:
 		
+		ofFloatColor _color;
+
 		void update(ofVboMesh &particleVbo, int _numParticles, ofTexture& _positionTexture, ofTexture& _ALMSTexture, float _twinkleSpeed){
 			shader.begin();
 			shader.setUniformTexture("PositionTexture", _positionTexture, 0);
 			shader.setUniformTexture("ALMSTexture", _ALMSTexture, 1);
 			shader.setUniform1f("TwinkleSpeed", _twinkleSpeed);
+			shader.setUniform4f("color", _color);
 			
 			bool dinges = true;
 			//glEnable(GL_POINT_SMOOTH);
