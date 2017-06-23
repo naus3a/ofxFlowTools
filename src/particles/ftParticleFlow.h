@@ -26,8 +26,8 @@ namespace flowTools {
 		
 		void	update(float _deltaTime = 0);
 		
-		void	draw(int _x, int _y) {draw(_x, _y, numParticlesX, numParticlesY);}
-		void	draw(int _x, int _y, int _width, int _height);
+		void	draw(int _x, int _y) {draw(_x, _y, numParticlesX, numParticlesY, 1);}
+		void	draw(int _x, int _y, int _width, int _height, float _alpha);
 		
 		bool	isActive() {return bIsActive; }
 		void	activate(bool _state) {bIsActive.set(_state);}

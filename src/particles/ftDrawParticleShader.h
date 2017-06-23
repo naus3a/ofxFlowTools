@@ -31,6 +31,7 @@ namespace flowTools {
 								   uniform sampler2DRect ALMSTexture;
 								   uniform vec4 color;
 								   uniform float TwinkleSpeed;
+                                   uniform float fade;
 								   
 								   void main(){
 									   
@@ -48,6 +49,7 @@ namespace flowTools {
 									   float alpha = min (0.5 - (age / life) * 0.5,age * 5.);
 									   alpha *= 0.5 + (cos((age + size) * TwinkleSpeed * mass) + 1.0) * 0.5;
 									   alpha = max(alpha, 0.0);
+                                       alpha *= fade;
 									   
 									   gl_FrontColor = vec4(color.r, color.g, color.b,  color.a*alpha);//vec4(vec3(1.0, 0.0, 0.0), alpha);
 									   
@@ -134,12 +136,13 @@ namespace flowTools {
 		
 		ofFloatColor _color;
 
-		void update(ofVboMesh &particleVbo, int _numParticles, ofTexture& _positionTexture, ofTexture& _ALMSTexture, float _twinkleSpeed){
+		void update(ofVboMesh &particleVbo, int _numParticles, ofTexture& _positionTexture, ofTexture& _ALMSTexture, float _twinkleSpeed, float _alpha=1){
 			shader.begin();
 			shader.setUniformTexture("PositionTexture", _positionTexture, 0);
 			shader.setUniformTexture("ALMSTexture", _ALMSTexture, 1);
 			shader.setUniform1f("TwinkleSpeed", _twinkleSpeed);
 			shader.setUniform4f("color", _color);
+            shader.setUniform1f("fade", _alpha);
 			
 			bool dinges = true;
 			//glEnable(GL_POINT_SMOOTH);

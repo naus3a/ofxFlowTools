@@ -374,8 +374,11 @@ namespace flowTools {
 	}
 	
 	//--------------------------------------------------------------
-	void ftFluidSimulation::draw(int x, int y, float _width, float _height){
+	void ftFluidSimulation::draw(int x, int y, float _width, float _height, float _alpha){
+        ofPushStyle();
+        ofSetColor(ofFloatColor(1,1,1,_alpha));
 		densitySwapBuffer.getBackTexture().draw(x,y,_width,_height); // why BACK texture?
+        ofPopStyle();
 	}
 	
 	//--------------------------------------------------------------
